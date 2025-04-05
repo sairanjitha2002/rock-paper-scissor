@@ -4,8 +4,23 @@ let count = JSON.parse(localStorage.getItem("count")) || {
   tie: 0,
 };
 updateName();
-
+let isAuto = false;
+let intervalId;
 updatebutton();
+
+function onAutoPlay() {
+  if (!isAuto) {
+    intervalId = setInterval(function () {
+      const playerMove = pickComputerMove();
+      playGame(playerMove);
+    }, 1000);
+    isAuto = true;
+  } else {
+    clearInterval(intervalId);
+    isAuto = false;
+  }
+}
+
 
 function playGame(playerMove) {
   const computerMove = pickComputerMove();
